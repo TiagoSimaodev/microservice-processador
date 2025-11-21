@@ -2,6 +2,10 @@ package br.com.pedidos.processador.entity;
 
 import java.util.UUID;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,11 +13,22 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
+@Entity
+@Table(name = "iten_pedido")
 public class ItemPedido {
 // teste final
+	
+	@Id
 	private UUID id = UUID.randomUUID();
+	
+	@ManyToOne
 	private Produto produto;
+	
 	private Integer quantidade;
+	
+	@ManyToOne
+	private Pedido pedido;
+	
 	public UUID getId() {
 		return id;
 	}
