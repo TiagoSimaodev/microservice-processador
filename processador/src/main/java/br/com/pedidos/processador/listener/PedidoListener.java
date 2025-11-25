@@ -7,16 +7,23 @@ import org.springframework.stereotype.Component;
 
 import br.com.pedidos.processador.entity.Pedido;
 import br.com.pedidos.processador.enums.Status;
+import br.com.pedidos.processador.service.PedidoService;
 
 @Component
 public class PedidoListener {
 
 	private final Logger logger = LoggerFactory.getLogger(PedidoListener.class);
 	
+	private final PedidoService pedidoService;
+	
+	public PedidoListener(PedidoService pedidoService) {
+		this.pedidoService = pedidoService;
+	}
+	
 	@RabbitListener(queues = "pedidos.v1.pedido-criado.gerar-processamento")
 	public void salvarPedido(Pedido pedido) {
 		pedido.setStatus(Status.PROCESSADO);
-		logger.info("Pedido processado: {}", pedido.toString());
+		pedidoService.save(pedido);
 	}
 	
 }
