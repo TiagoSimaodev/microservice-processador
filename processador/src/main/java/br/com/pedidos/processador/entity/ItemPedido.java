@@ -29,6 +29,14 @@ public class ItemPedido {
 	@ManyToOne
 	private Pedido pedido;
 	
+	public Pedido getPedido() {
+		return pedido;
+	}
+	
+	public void setPedido(Pedido pedido) {
+		this.pedido = pedido;
+	}
+	
 	public UUID getId() {
 		return id;
 	}
